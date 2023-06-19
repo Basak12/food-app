@@ -21,9 +21,9 @@ export default ({term}: {term: string}) => {
         }
     }
 
-    //useEffect(() => {
-      //searchApi({ searchTerm: 'pasta' });
-    //}, []);
+    useEffect(() => {
+      searchApi({ searchTerm: 'pizza' });
+    }, []);
 
     return [searchApi, result, errorMessage];
 }
