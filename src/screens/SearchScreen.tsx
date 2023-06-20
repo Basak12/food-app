@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from "react";
-import {View, Text, StyleSheet} from "react-native";
+import {View, Text, StyleSheet, ScrollView} from "react-native";
 import SearchBar from "../components/SearchBar";
 import useResults from "../hooks/useResults";
 import ResultsList from "../components/ResultsList";
 
-const SearchScreen = () => {
+const SearchScreen = ({navigation} : {navigation: any}) => {
     const [term, setTerm] = useState<string>('');
     const [searchApi, result, errorMessage] = useResults({term});
 
@@ -14,17 +14,40 @@ const SearchScreen = () => {
         });
     }
 
+    const handleSearch = () => {
+        searchApi({ searchTerm: term });
+    };
+
     return (
-        <View>
-        <SearchBar term = {term} onTermChange = {setTerm} onTermSubmit = {() => searchApi({searchTerm: term})}/>
-             {errorMessage ? <Text>{errorMessage}</Text> : null}
-            <Text>We have found {term} results</Text>
-            <ResultsList results ={filterResultsByPrice('$')} title = 'Cost Effective'/>
-            <ResultsList results ={filterResultsByPrice('$$')} title = 'Bit Pricer'/>
-            <ResultsList results ={filterResultsByPrice('$$$')} title = 'Big Spender' />
+        <View
+            style={{
+            flex: 1,
+            backgroundColor: '#F4F4FB'
+
+        }}>
+            <SearchBar
+                term={term}
+                onTermChange={setTerm}
+                onTermSubmit={handleSearch}
+            />
+                {errorMessage ? <Text style={styles.messages}>{errorMessage}</Text> : null}
+                {result ? <Text style={styles.messages}> {result.length} results</Text> : null}
+            <ScrollView>
+                <ResultsList results={filterResultsByPrice("$")} title="Cost Effective" navigation = {navigation} />
+                <ResultsList results={filterResultsByPrice("$$")} title="Bit Pricer" navigation = {navigation}/>
+                <ResultsList results={filterResultsByPrice("$$$")} title="Big Spender" navigation = {navigation}/>
+            </ScrollView>
         </View>
     );
 }
 
 export default SearchScreen;
+
+const styles = StyleSheet.create({
+    messages: {
+        fontSize: 16,
+        marginLeft: 10,
+        marginTop: 10,
+    }
+});
 

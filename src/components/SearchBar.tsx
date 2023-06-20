@@ -4,16 +4,11 @@ import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { EvilIcons } from '@expo/vector-icons';
 
-type SearchBarProps = {
-    term: string;
-    onTermChange: (newTerm: string) => void;
-    onTermSubmit: () => void;
-};
 
-const SearchBar = ({term, onTermChange, onTermSubmit}: SearchBarProps) => {
+const SearchBar = ({term, onTermChange, onTermSubmit}: {term: string, onTermChange: any, onTermSubmit: any}) => {
     return (
         <View style={styles.background}>
-            <Ionicons style = {styles.iconStyle} name="search" color="black" />
+            <Ionicons style = {styles.iconStyle} name="search" color="#5E69EE" />
             <TextInput style = {styles.inputStyle}
               autoCapitalize='none'
               autoCorrect={false}
@@ -30,11 +25,15 @@ export default SearchBar;
 
 const styles = StyleSheet.create({
     background: {
-        backgroundColor: "#F0EEEE",
+        backgroundColor: "#F4F4FB",
         height: 50,
+        borderColor: '#5E69EE',
+        borderWidth: 2,
         borderRadius: 5,
         marginHorizontal: 15,
         flexDirection: "row",
+        marginTop: 10,
+        marginBottom: 10,
     },
     inputStyle: {
         flex: 1

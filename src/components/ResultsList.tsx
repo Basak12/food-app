@@ -1,23 +1,28 @@
 import React from "react";
-import {View, Text, StyleSheet, FlatList, Image} from "react-native";
+import {View, Text, StyleSheet, FlatList, Image, TouchableOpacity} from "react-native";
 
-const ResultsList = ({title, results} : {title: string, results: any}) => {
+const ResultsList = ({title, results, navigation} : {title: string, results: any, navigation: any}) => {
+    if (!results.length){
+        return null;
+    }
 
     return(
         <View>
             <Text style={styles.title}> {title}</Text>
             <FlatList
                 horizontal
-                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
                 data={results}
                 keyExtractor={(result: any) => result.id} //keyExtractor is a function that takes in an object and returns a string that is unique and that can be used as a key.
                 renderItem={({item}) => {
                     return (
+                        <TouchableOpacity onPress={() => navigation.navigate("SingleResults", {id: item.id})}>
                         <View style={styles.container}>
-                        <Image source={{uri: item.image_url}} style={{width: 250, height: 150, borderRadius: 4}}/>
+                        <Image source={{uri: item.image_url}} style={{width: 250, height: 200, borderRadius: 4}}/>
                          <Text style={styles.name}>{item.name}</Text>
                          <Text >{item.rating} Stars {item.review_count} Reviews</Text>
                         </View>
+                        </TouchableOpacity>
                     )
                 }}
             />
@@ -29,7 +34,7 @@ export default ResultsList;
 
 const styles = StyleSheet.create({
     title: {
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: "bold",
         marginLeft: 10,
         marginTop: 10,
