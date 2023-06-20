@@ -31,7 +31,7 @@ const SearchScreen = ({navigation} : {navigation: any}) => {
                 onTermSubmit={handleSearch}
             />
                 {errorMessage ? <Text style={styles.messages}>{errorMessage}</Text> : null}
-                {result ? <Text style={styles.messages}> {result.length} results</Text> : null}
+                {result ? <Text style={styles.messages}> {result.length} results have found</Text> : null}
             <ScrollView>
                 <ResultsList results={filterResultsByPrice("$")} title="Cost Effective" navigation = {navigation} />
                 <ResultsList results={filterResultsByPrice("$$")} title="Bit Pricer" navigation = {navigation}/>

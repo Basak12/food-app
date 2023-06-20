@@ -61,22 +61,18 @@ const SingleResultScreen = ({navigation}: {navigation: any}) => {
         category = <Text>Big Spender</Text>
     }
 
-    console.log(result.price)
-
     return (
         <View style={styles.container}>
            <Text style = {styles.name}>{result.name}</Text>
             <Text style ={styles.rating}>{result.rating} Stars, {result.review_count} Reviews</Text>
             <Text style ={styles.price}>{result.price} - {category}</Text>
-            <View>
                 <ScrollView horizontal showsHorizontalScrollIndicator={true}>
-                    <View style={{ flexDirection: 'row' , alignItems: 'stretch'}}>
+                    <View style={{ flexDirection: 'row', backgroundColor: '#e4e4fc', padding: 20,}}>
                         {result.photos.map((item, index) => (
-                            <Image key={index} source={{ uri: item }} style={{ width: 200, height: 150 , marginLeft: 5, marginRight: 5}} />
+                            <Image key={index} source={{ uri: item }} style={{ width: 200, height: 150 , marginRight: 5, borderRadius: 4}} />
                         ))}
                     </View>
                 </ScrollView>
-            </View>
         </View>
     );
 }
@@ -90,6 +86,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
         marginRight: 10,
         marginLeft: 10,
+        backgroundColor: '#F4F4FB',
     },
     name: {
         fontWeight: "bold",

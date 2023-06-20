@@ -8,7 +8,7 @@ import { EvilIcons } from '@expo/vector-icons';
 const SearchBar = ({term, onTermChange, onTermSubmit}: {term: string, onTermChange: any, onTermSubmit: any}) => {
     return (
         <View style={styles.background}>
-            <Ionicons style = {styles.iconStyle} name="search" color="#5E69EE" />
+            <Ionicons style = {styles.iconStyle} name="search" color="#5e69ee" />
             <TextInput style = {styles.inputStyle}
               autoCapitalize='none'
               autoCorrect={false}
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     background: {
         backgroundColor: "#F4F4FB",
         height: 50,
-        borderColor: '#5E69EE',
+        borderColor: '#a9aff6',
         borderWidth: 2,
         borderRadius: 5,
         marginHorizontal: 15,
