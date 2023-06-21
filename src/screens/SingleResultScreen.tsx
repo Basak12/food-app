@@ -62,18 +62,24 @@ const SingleResultScreen = ({navigation}: {navigation: any}) => {
     }
 
     return (
-        <View style={styles.container}>
-           <Text style = {styles.name}>{result.name}</Text>
-            <Text style ={styles.rating}>{result.rating} Stars, {result.review_count} Reviews</Text>
-            <Text style ={styles.price}>{result.price} - {category}</Text>
+        <View style={{backgroundColor: '#F4F4FB', flex:1}}>
+            <View style={styles.container}>
+                <Text style = {styles.name}>{result.name}</Text>
+                <Text style ={styles.rating}>{result.rating} Stars, {result.review_count} Reviews</Text>
+                <Text style ={styles.price}>{result.price} - {category}</Text>
                 <ScrollView horizontal showsHorizontalScrollIndicator={true}>
-                    <View style={{ flexDirection: 'row', backgroundColor: '#e4e4fc', padding: 20,}}>
+                    <View style={{ flexDirection: 'row', backgroundColor: '#e4e4fc', padding: 20, borderRadius: 4}}>
                         {result.photos.map((item, index) => (
                             <Image key={index} source={{ uri: item }} style={{ width: 200, height: 150 , marginRight: 5, borderRadius: 4}} />
                         ))}
                     </View>
                 </ScrollView>
+                <Text style ={styles.location}>{result.location.city} - {result.location.display_address}</Text>
+                <Text style ={styles.phone}> {result.display_phone}</Text>
+                <Text style ={{marginTop: 6}}> {result.transactions.join(' - ')}</Text>
+            </View>
         </View>
+
     );
 }
 
@@ -83,29 +89,39 @@ const styles = StyleSheet.create({
     container: {
         alignItems: "center",
         flexDirection: "column",
-        marginTop: 20,
-        marginRight: 10,
-        marginLeft: 10,
-        backgroundColor: '#F4F4FB',
     },
     name: {
         fontWeight: "bold",
-        marginBottom: 5,
-        fontSize: 28,
+        marginBottom: 6,
+        marginTop: 24,
+        fontSize: 18,
     },
     rating: {
-        marginBottom: 5,
-        fontSize: 18,
+        marginBottom: 6,
+        fontSize: 16,
         fontWeight: '600',
     },
     price: {
+        marginTop: 2,
         marginBottom: 10,
-        fontSize: 16,
+        fontSize: 14,
         fontWeight: '500',
     },
     imageContainer: {
         height: 200,
         width: 300,
+    },
+    location: {
+        marginTop: 8,
+        fontSize: 16,
+        marginLeft: 10,
+        marginRight: 10,
+        alignSelf: 'center',
+    },
+    phone: {
+        color: 'blue',
+        marginTop: 6,
+        textDecorationLine: 'underline',
     }
 });
 

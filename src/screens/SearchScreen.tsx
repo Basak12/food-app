@@ -6,17 +6,13 @@ import ResultsList from "../components/ResultsList";
 
 const SearchScreen = ({navigation} : {navigation: any}) => {
     const [term, setTerm] = useState<string>('');
-    const [searchApi, result, errorMessage] = useResults({term});
+    const [searchApi, result, errorMessage] = useResults();
 
     const filterResultsByPrice = (price: string) => {
         return result.filter((result: any) => {
             return result.price === price;
         });
     }
-
-    const handleSearch = () => {
-        searchApi({ searchTerm: term });
-    };
 
     return (
         <View
@@ -27,12 +23,12 @@ const SearchScreen = ({navigation} : {navigation: any}) => {
         }}>
             <SearchBar
                 term={term}
-                onTermChange={setTerm}
-                onTermSubmit={handleSearch}
+                onTermChange={(newTerm: string) => setTerm(newTerm)}
+                onTermSubmit={() => searchApi({term})}
             />
                 {errorMessage ? <Text style={styles.messages}>{errorMessage}</Text> : null}
                 {result ? <Text style={styles.messages}> {result.length} results have found</Text> : null}
-            <ScrollView>
+            <ScrollView style={{marginBottom: 24}}>
                 <ResultsList results={filterResultsByPrice("$")} title="Cost Effective" navigation = {navigation} />
                 <ResultsList results={filterResultsByPrice("$$")} title="Bit Pricer" navigation = {navigation}/>
                 <ResultsList results={filterResultsByPrice("$$$")} title="Big Spender" navigation = {navigation}/>
@@ -46,7 +42,7 @@ export default SearchScreen;
 const styles = StyleSheet.create({
     messages: {
         fontSize: 16,
-        marginLeft: 10,
+        marginLeft: 15,
         marginTop: 10,
     }
 });

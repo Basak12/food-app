@@ -1,9 +1,11 @@
 import {useEffect, useState} from "react";
 import yelp from "../api/yelp";
 
-export default ({term}: {term: string}) => {
+export default () => {
     const [result, setResult] = useState<any>([])
     const [errorMessage, setErrorMessage] = useState<string>('');
+
+
 
     const searchApi = async ({ term }: { term: string }) => {
         try {
@@ -15,6 +17,7 @@ export default ({term}: {term: string}) => {
                 }
             });
             setResult(response.data.businesses);
+            console.log(term, 'hook')
         }
         catch (err) {
             setErrorMessage('Something went wrong');
@@ -22,7 +25,7 @@ export default ({term}: {term: string}) => {
     }
 
     useEffect(() => {
-      searchApi({ term: 'dessert' });
+      searchApi({ term: 'pizza' });
     }, []);
 
     return [searchApi, result, errorMessage];

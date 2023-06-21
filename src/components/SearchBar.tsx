@@ -6,9 +6,10 @@ import { EvilIcons } from '@expo/vector-icons';
 
 
 const SearchBar = ({term, onTermChange, onTermSubmit}: {term: string, onTermChange: any, onTermSubmit: any}) => {
+
     return (
         <View style={styles.background}>
-            <Ionicons style = {styles.iconStyle} name="search" color="#5e69ee" />
+            <Ionicons style = {styles.iconStyle} name="search" color="#2231e8" />
             <TextInput style = {styles.inputStyle}
               autoCapitalize='none'
               autoCorrect={false}

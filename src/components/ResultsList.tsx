@@ -36,11 +36,11 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 20,
         fontWeight: "bold",
-        marginLeft: 10,
+        marginLeft: 15,
         marginTop: 10,
     },
     container: {
-        marginLeft: 10,
+        marginLeft: 15,
         marginBottom: 5,
         marginTop: 5,
     },
