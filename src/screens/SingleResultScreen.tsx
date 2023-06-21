@@ -89,12 +89,11 @@ const SingleResultScreen = ({navigation}: {navigation: any}) => {
                 </ScrollView>
                 <Text style ={styles.location}>{result.location.city} - {result.location.display_address}</Text>
                 <Text style ={styles.phone}> {result.display_phone}</Text>
-                <Text style ={{marginTop: 6, fontSize: 16}}> {result.transactions.join(' - ')}</Text>
             </View>
             {!addReview &&
                 <TouchableHighlight onPress={() => setAddReview(true)} style={{
                     alignSelf: 'flex-end',
-                    backgroundColor: '#e4e4fc',
+                    backgroundColor: '#eaeaf6',
                     padding: 10,
                     borderRadius: 4,
                     marginBottom: 10,
@@ -112,7 +111,10 @@ const SingleResultScreen = ({navigation}: {navigation: any}) => {
                 </TouchableHighlight>
             }
             {addReview && <AddReviewScreen id={id} setAddReview = {setAddReview}/>}
-            {!addReview && <ReviewsList id={id}/>}
+            {!addReview &&
+                <ScrollView>
+                    <ReviewsList id={id}/>
+                </ScrollView>}
         </View>
     );
 }

@@ -11,17 +11,15 @@ const ReviewsList = ({id}: {id:string}) => {
 
     return (
         <View>
-
         {filteredReviews.length == 0 ? <Text style={{fontWeight: '500', fontSize: 18, marginLeft: 10}}>No reviews yet</Text> : <View style={{
             marginLeft: 10,
             marginRight: 10,
         }}>
             <View>
-                <ScrollView>
                 {filteredReviews.map((review: any) => {
                     return (
                         <View key = {review.content} style={{marginBottom: 10, padding: 10,
-                            backgroundColor: '#e8e8f8',
+                            backgroundColor: '#eaeaf6',
                             borderRadius: 8}}>
                             <Text style={styles.title}>{review.title}</Text>
                             <Text style={styles.content}>{review.content}</Text>
@@ -29,7 +27,6 @@ const ReviewsList = ({id}: {id:string}) => {
                         </View>
                     );
                 })}
-                </ScrollView>
             </View>
         </View>}
         </View>
@@ -40,14 +37,14 @@ export default ReviewsList;
 const styles = StyleSheet.create({
     title: {
         fontWeight: 'bold',
-        fontSize: 20,
+        fontSize: 18,
     },
     content: {
-        marginTop: 6,
+        marginTop: 2,
         fontSize: 18,
     },
     rating: {
-        fontSize: 18,
+        fontSize: 16,
     }
 });
 
