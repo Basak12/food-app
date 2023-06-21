@@ -1,11 +1,26 @@
-import React from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {View, Text, StyleSheet, TextInput, Button} from "react-native";
+import {ReviewContext} from "../context/ReviewContext";
 
 const ReviewsList = ({id}: {id:string}) => {
+    const {filterReviewsById, filteredReviews} = useContext(ReviewContext);
+
+    useEffect(() => {
+        filterReviewsById(id);
+    }, [id]);
+
+    console.log(filteredReviews);
 
     return (
-        <View>
-            <Text>ReviewsList</Text>
+        <View style={styles.container}>
+            {filteredReviews.map((review: any) => {
+                return (
+                    <View key={review.id}>
+                        <Text>{review.title}</Text>
+                        <Text>{review.content}</Text>
+                    </View>
+                );
+            })}
         </View>
     );
 }
@@ -13,4 +28,8 @@ const ReviewsList = ({id}: {id:string}) => {
 export default ReviewsList;
 
 const styles = StyleSheet.create({
+    container: {
+        marginLeft: 10,
+        alignItems: 'center',
+    }
 });

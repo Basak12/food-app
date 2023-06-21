@@ -3,6 +3,8 @@ import {View, Text, StyleSheet, ScrollView, Image, FlatList, Button, TextInput, 
 import yelp from "../api/yelp";
 import { Ionicons } from '@expo/vector-icons';
 import AddReviewScreen from "./AddReviewScreen";
+import {ReviewContext} from "../context/ReviewContext";
+import ReviewsList from "../components/ReviewsList";
 
 interface YelpData {
     alias: string;
@@ -43,6 +45,7 @@ interface Review {
 
 
 const SingleResultScreen = ({navigation}: {navigation: any}) => {
+    const {filteredReviews, filterReviewsById} = useContext(ReviewContext);
     const id = navigation.getParam("id")
     const [result, setResult] = useState<YelpData | null>(null);
     const [addReview, setAddReview] = useState<boolean>(false);
@@ -69,7 +72,6 @@ const SingleResultScreen = ({navigation}: {navigation: any}) => {
     else if(result.price === "$$$"){
         category = <Text>Big Spender</Text>
     }
-
 
     return (
         <View style={{backgroundColor: '#F4F4FB', flex:1}}>
@@ -108,6 +110,7 @@ const SingleResultScreen = ({navigation}: {navigation: any}) => {
                 </View>
             </TouchableHighlight>
             {addReview && <AddReviewScreen id={id} setAddReview = {setAddReview}/>}
+            {!addReview && <ReviewsList id={id}/>}
         </View>
     );
 }
