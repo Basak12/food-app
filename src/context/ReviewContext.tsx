@@ -1,12 +1,14 @@
 import React, { ReactNode, useState } from "react";
 interface ReviewContextValue {
     handleReview: (id: string, title: string, content: string) => void;
-    reviews?: any;
+    reviews: any;
+    filterReviews: (id: string) => any;
 }
 
 export const ReviewContext = React.createContext<ReviewContextValue>({
     handleReview: () => {},
-    reviews: []
+    reviews: [],
+    filterReviews: () => {}
 });
 
 export const ReviewProvider = ({ children }: { children: ReactNode }) => {
@@ -16,8 +18,12 @@ export const ReviewProvider = ({ children }: { children: ReactNode }) => {
         setReviews([...reviews, { id, title, content }]);
     }
 
+    const filterReviews = (id: string) => {
+        return reviews.filter((review: any) => review.id === id);
+    }
+
     const contextValue: ReviewContextValue = {
-            handleReview, reviews
+            handleReview, reviews, filterReviews
     };
 
     return (

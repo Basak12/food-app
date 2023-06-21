@@ -21,19 +21,22 @@ const AddReviewScreen = ({ id, setAddReview }: { id: string, setAddReview: any }
 
     return (
         <View style={styles.container}>
-            <TextInput
-                style={styles.input}
-                placeholder="Title"
-                value={formData.title}
-                onChangeText={(text) => handleInputChange('title', text)}
-            />
-
-            <TextInput
-                style={styles.input}
-                placeholder="Content"
-                value={formData.content}
-                onChangeText={(text) => handleInputChange('content', text)}
-            />
+            <View style={styles.input}>
+                <Text>Enter Title</Text>
+                <TextInput
+                    style = {{height: 40 , borderColor: 'gray', borderWidth: 1, borderRadius: 4}}
+                    value={formData.title}
+                    onChangeText={(text) => handleInputChange('title', text)}
+                />
+            </View>
+            <View style={styles.input}>
+                <Text>Enter Content</Text>
+                <TextInput
+                    style = {{height: 40 , borderColor: 'gray', borderWidth: 1, borderRadius: 4}}
+                    value={formData.content}
+                    onChangeText={(text) => handleInputChange('content', text)}
+                />
+            </View>
             <TouchableOpacity onPress={submitReview} style={{
                 alignSelf: 'flex-start',
                 backgroundColor: '#e4e4fc',
@@ -62,7 +65,6 @@ const styles = StyleSheet.create({
     input: {
         height: 40,
         marginTop: 12,
-        borderWidth: 1,
-        borderColor: '#8e8ef2',
+        marginBottom: 12,
     }
 });
