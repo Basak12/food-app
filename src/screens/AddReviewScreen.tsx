@@ -1,11 +1,11 @@
 import React, {useContext, useState} from "react";
 import {View, Text, StyleSheet, TextInput, Button, TouchableOpacity} from "react-native";
 import {ReviewContext} from "../context/ReviewContext";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const AddReviewScreen = ({ id, setAddReview }: { id: string, setAddReview: any }) => {
     const { handleReview, reviews} = useContext(ReviewContext);
     const [formData, setFormData] = useState({ title: '', content: '' , rating: ''});
-
 
     const handleInputChange = (field: any, value: any) => {
         setFormData({ ...formData, [field]: value });
@@ -15,7 +15,6 @@ const AddReviewScreen = ({ id, setAddReview }: { id: string, setAddReview: any }
         handleReview(id, formData.title, formData.content, formData.rating );
         setAddReview(false);
     }
-
 
     return (
         <View style={styles.container}>
@@ -43,18 +42,7 @@ const AddReviewScreen = ({ id, setAddReview }: { id: string, setAddReview: any }
                     onChangeText={(text) => handleInputChange('rating', text)}
                 />
             </View>
-            <TouchableOpacity onPress={submitReview} style={{
-                alignSelf: 'flex-start',
-                backgroundColor: '#e4e4fc',
-                padding: 10,
-                borderRadius: 4,
-                marginBottom: 10,
-                marginTop: 10,
-                width: 100,
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexDirection: 'row'
-            }}>
+            <TouchableOpacity onPress={submitReview} style={styles.submit}>
                 <Text style={{ fontWeight: '500', fontSize: 16 }}>Save Review</Text>
             </TouchableOpacity>
         </View>
@@ -83,5 +71,17 @@ const styles = StyleSheet.create({
     label: {
         fontWeight: "500",
         fontSize: 16,
+    },
+    submit: {
+        alignSelf: 'flex-start',
+        backgroundColor: '#e4e4fc',
+        padding: 10,
+        borderRadius: 4,
+        marginBottom: 10,
+        marginTop: 10,
+        width: 100,
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row'
     }
 });

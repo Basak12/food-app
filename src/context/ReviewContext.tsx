@@ -1,4 +1,5 @@
 import React, { ReactNode, useState } from "react";
+
 interface ReviewContextValue {
     handleReview: (id: string, title: string, content: string, rating: string) => void;
     reviews: any;
@@ -10,7 +11,7 @@ export const ReviewContext = React.createContext<ReviewContextValue>({
     handleReview: () => {},
     reviews: [],
     filterReviewsById: () => {},
-    filteredReviews: []
+    filteredReviews: [],
 });
 
 export const ReviewProvider = ({ children }: { children: ReactNode }) => {
@@ -27,7 +28,7 @@ export const ReviewProvider = ({ children }: { children: ReactNode }) => {
     }
 
     const contextValue: ReviewContextValue = {
-            handleReview, reviews, filterReviewsById, filteredReviews
+            handleReview, reviews, filterReviewsById, filteredReviews,
     };
 
     return (

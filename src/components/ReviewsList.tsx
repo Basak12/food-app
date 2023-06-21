@@ -1,17 +1,32 @@
 import React, {useContext, useEffect, useState} from "react";
-import {View, Text, StyleSheet, TextInput, Button, ScrollView} from "react-native";
+import {
+    View,
+    Text,
+    StyleSheet,
+    TextInput,
+    Button,
+    ScrollView,
+    TouchableHighlight,
+    TouchableOpacity
+} from "react-native";
 import {ReviewContext} from "../context/ReviewContext";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const ReviewsList = ({id}: {id:string}) => {
-    const {filterReviewsById, filteredReviews} = useContext(ReviewContext);
+    const {filterReviewsById, filteredReviews, } = useContext(ReviewContext);
+    const [newReviews, setNewReviews] = useState<any>([]);
 
     useEffect(() => {
         filterReviewsById(id);
     }, [id]);
 
+    const handleDelete = (content: string) => {
+        filteredReviews.filter((review: any) => review.content !== content);
+    }
+
     return (
         <View>
-        {filteredReviews.length == 0 ? <Text style={{fontWeight: '500', fontSize: 18, marginLeft: 10}}>No reviews yet</Text> : <View style={{
+        {filteredReviews.length == 0 ? <Text style={{fontWeight: '500', fontSize: 18, marginLeft: 10}}>No comments yet</Text> : <View style={{
             marginLeft: 10,
             marginRight: 10,
         }}>
@@ -21,7 +36,12 @@ const ReviewsList = ({id}: {id:string}) => {
                         <View key = {review.content} style={{marginBottom: 10, padding: 10,
                             backgroundColor: '#eaeaf6',
                             borderRadius: 8}}>
-                            <Text style={styles.title}>{review.title}</Text>
+                            <View style = {{flexDirection: 'row', display: 'flex', justifyContent: 'space-between'}}>
+                                <Text style={styles.title}>{review.title}</Text>
+                                <TouchableOpacity onPress={() => handleDelete(review.content)}>
+                                <MaterialCommunityIcons name="delete" size={24} color="black" />
+                                </TouchableOpacity>
+                            </View>
                             <Text style={styles.content}>{review.content}</Text>
                             <Text style={styles.rating}>{review.rating}/5</Text>
                         </View>
@@ -47,8 +67,3 @@ const styles = StyleSheet.create({
         fontSize: 16,
     }
 });
-
-
-/*
-'#e4e4fc'
- */

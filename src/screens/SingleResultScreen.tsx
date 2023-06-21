@@ -1,9 +1,19 @@
 import React, {useState, useEffect, useContext} from "react";
-import {View, Text, StyleSheet, ScrollView, Image, FlatList, Button, TextInput, TouchableHighlight} from "react-native";
+import {
+    View,
+    Text,
+    StyleSheet,
+    ScrollView,
+    Image,
+    FlatList,
+    Button,
+    TextInput,
+    TouchableHighlight,
+    TouchableOpacity
+} from "react-native";
 import yelp from "../api/yelp";
 import { Ionicons } from '@expo/vector-icons';
 import AddReviewScreen from "./AddReviewScreen";
-import {ReviewContext} from "../context/ReviewContext";
 import ReviewsList from "../components/ReviewsList";
 
 interface YelpData {
@@ -45,7 +55,6 @@ interface Review {
 
 
 const SingleResultScreen = ({navigation}: {navigation: any}) => {
-    const {filteredReviews, filterReviewsById} = useContext(ReviewContext);
     const id = navigation.getParam("id")
     const [result, setResult] = useState<YelpData | null>(null);
     const [addReview, setAddReview] = useState<boolean>(false);
@@ -91,24 +100,12 @@ const SingleResultScreen = ({navigation}: {navigation: any}) => {
                 <Text style ={styles.phone}> {result.display_phone}</Text>
             </View>
             {!addReview &&
-                <TouchableHighlight onPress={() => setAddReview(true)} style={{
-                    alignSelf: 'flex-end',
-                    backgroundColor: '#eaeaf6',
-                    padding: 10,
-                    borderRadius: 4,
-                    marginBottom: 10,
-                    marginTop: 10,
-                    marginRight: 10,
-                    width: 100,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexDirection: 'row'
-                }}>
+                <TouchableOpacity onPress={() => setAddReview(true)} style={styles.addReview}>
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                         <Ionicons name="ios-add" size={24} color="black" />
-                        <Text style={{fontWeight: 'bold'}}>Add Review</Text>
+                        <Text style={{fontWeight: 'bold'}}>Add Comment</Text>
                     </View>
-                </TouchableHighlight>
+                </TouchableOpacity>
             }
             {addReview && <AddReviewScreen id={id} setAddReview = {setAddReview}/>}
             {!addReview &&
@@ -159,6 +156,19 @@ const styles = StyleSheet.create({
         marginTop: 6,
         textDecorationLine: 'underline',
         fontSize: 18,
+    },
+    addReview: {
+        alignSelf: 'flex-end',
+        backgroundColor: '#eaeaf6',
+        padding: 10,
+        borderRadius: 4,
+        marginBottom: 10,
+        marginTop: 10,
+        marginRight: 10,
+        width: 100,
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row'
     }
 });
 
