@@ -1,10 +1,10 @@
 import {useEffect, useState} from "react";
 import yelp from "../api/yelp";
 
+
 export default () => {
     const [result, setResult] = useState<any>([])
     const [errorMessage, setErrorMessage] = useState<string>('');
-
 
 
     const searchApi = async ({ term }: { term: string }) => {
@@ -17,7 +17,6 @@ export default () => {
                 }
             });
             setResult(response.data.businesses);
-            console.log(term, 'hook')
         }
         catch (err) {
             setErrorMessage('Something went wrong');

@@ -1,7 +1,8 @@
-import React, {useState, useEffect} from "react";
-import {View, Text, StyleSheet, ScrollView, Image, FlatList} from "react-native";
+import React, {useState, useEffect, useContext} from "react";
+import {View, Text, StyleSheet, ScrollView, Image, FlatList, Button, TextInput, TouchableHighlight} from "react-native";
 import yelp from "../api/yelp";
-
+import { Ionicons } from '@expo/vector-icons';
+import AddReviewScreen from "./AddReviewScreen";
 
 interface YelpData {
     alias: string;
@@ -34,9 +35,18 @@ interface YelpData {
     url: string;
 }
 
+interface Review {
+    id: string;
+    title: string;
+    review: string;
+}
+
+
 const SingleResultScreen = ({navigation}: {navigation: any}) => {
     const id = navigation.getParam("id")
     const [result, setResult] = useState<YelpData | null>(null);
+    const [addReview, setAddReview] = useState<boolean>(false);
+
     const getResult = async (id: string) =>{
         const response = await yelp.get(`/${id}`);
         setResult(response.data);
@@ -44,12 +54,11 @@ const SingleResultScreen = ({navigation}: {navigation: any}) => {
 
     useEffect(() => {
         getResult(id);
-    }, [])
+    }, []);
 
     if(!result){
         return null;
     }
-
     let category = null;
     if(result.price === "$"){
         category = <Text>Cost Effective</Text>
@@ -61,10 +70,12 @@ const SingleResultScreen = ({navigation}: {navigation: any}) => {
         category = <Text>Big Spender</Text>
     }
 
+
     return (
         <View style={{backgroundColor: '#F4F4FB', flex:1}}>
             <View style={styles.container}>
-                <Text style = {styles.name}>{result.name}</Text>
+                    <Text style = {styles.name}>{result.name}</Text>
+
                 <Text style ={styles.rating}>{result.rating} Stars, {result.review_count} Reviews</Text>
                 <Text style ={styles.price}>{result.price} - {category}</Text>
                 <ScrollView horizontal showsHorizontalScrollIndicator={true}>
@@ -78,8 +89,26 @@ const SingleResultScreen = ({navigation}: {navigation: any}) => {
                 <Text style ={styles.phone}> {result.display_phone}</Text>
                 <Text style ={{marginTop: 6}}> {result.transactions.join(' - ')}</Text>
             </View>
+            <TouchableHighlight onPress={() => setAddReview(true)} style={{
+                alignSelf: 'flex-end',
+                backgroundColor: '#e4e4fc',
+                padding: 10,
+                borderRadius: 4,
+                marginBottom: 10,
+                marginTop: 10,
+                marginRight: 10,
+                width: 100,
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexDirection: 'row'
+            }}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <Ionicons name="ios-add" size={24} color="black" />
+                    <Text>Add Review</Text>
+                </View>
+            </TouchableHighlight>
+            {addReview && <AddReviewScreen id={id} setAddReview = {setAddReview}/>}
         </View>
-
     );
 }
 
