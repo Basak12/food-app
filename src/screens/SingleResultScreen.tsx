@@ -83,32 +83,34 @@ const SingleResultScreen = ({navigation}: {navigation: any}) => {
                 <ScrollView horizontal showsHorizontalScrollIndicator={true}>
                     <View style={{ flexDirection: 'row', backgroundColor: '#e4e4fc', padding: 20, borderRadius: 4}}>
                         {result.photos.map((item, index) => (
-                            <Image key={index} source={{ uri: item }} style={{ width: 200, height: 150 , marginRight: 5, borderRadius: 4}} />
+                            <Image key={index} source={{ uri: item }} style={{ width: 200, height: 200 , marginRight: 5, borderRadius: 4}} />
                         ))}
                     </View>
                 </ScrollView>
                 <Text style ={styles.location}>{result.location.city} - {result.location.display_address}</Text>
                 <Text style ={styles.phone}> {result.display_phone}</Text>
-                <Text style ={{marginTop: 6}}> {result.transactions.join(' - ')}</Text>
+                <Text style ={{marginTop: 6, fontSize: 16}}> {result.transactions.join(' - ')}</Text>
             </View>
-            <TouchableHighlight onPress={() => setAddReview(true)} style={{
-                alignSelf: 'flex-end',
-                backgroundColor: '#e4e4fc',
-                padding: 10,
-                borderRadius: 4,
-                marginBottom: 10,
-                marginTop: 10,
-                marginRight: 10,
-                width: 100,
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexDirection: 'row'
-            }}>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <Ionicons name="ios-add" size={24} color="black" />
-                    <Text>Add Review</Text>
-                </View>
-            </TouchableHighlight>
+            {!addReview &&
+                <TouchableHighlight onPress={() => setAddReview(true)} style={{
+                    alignSelf: 'flex-end',
+                    backgroundColor: '#e4e4fc',
+                    padding: 10,
+                    borderRadius: 4,
+                    marginBottom: 10,
+                    marginTop: 10,
+                    marginRight: 10,
+                    width: 100,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexDirection: 'row'
+                }}>
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                        <Ionicons name="ios-add" size={24} color="black" />
+                        <Text style={{fontWeight: 'bold'}}>Add Review</Text>
+                    </View>
+                </TouchableHighlight>
+            }
             {addReview && <AddReviewScreen id={id} setAddReview = {setAddReview}/>}
             {!addReview && <ReviewsList id={id}/>}
         </View>
@@ -126,17 +128,17 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         marginBottom: 6,
         marginTop: 24,
-        fontSize: 18,
+        fontSize: 22,
     },
     rating: {
         marginBottom: 6,
-        fontSize: 16,
+        fontSize: 20,
         fontWeight: '600',
     },
     price: {
         marginTop: 2,
         marginBottom: 10,
-        fontSize: 14,
+        fontSize: 18,
         fontWeight: '500',
     },
     imageContainer: {
@@ -145,7 +147,7 @@ const styles = StyleSheet.create({
     },
     location: {
         marginTop: 8,
-        fontSize: 16,
+        fontSize: 18,
         marginLeft: 10,
         marginRight: 10,
         alignSelf: 'center',
@@ -154,6 +156,7 @@ const styles = StyleSheet.create({
         color: 'blue',
         marginTop: 6,
         textDecorationLine: 'underline',
+        fontSize: 18,
     }
 });
 
