@@ -14,15 +14,10 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const ReviewsList = ({id}: {id:string}) => {
     const {filterReviewsById, filteredReviews, } = useContext(ReviewContext);
-    const [newReviews, setNewReviews] = useState<any>([]);
 
     useEffect(() => {
         filterReviewsById(id);
     }, [id]);
-
-    const handleDelete = (content: string) => {
-        filteredReviews.filter((review: any) => review.content !== content);
-    }
 
     return (
         <View>
@@ -38,7 +33,7 @@ const ReviewsList = ({id}: {id:string}) => {
                             borderRadius: 8}}>
                             <View style = {{flexDirection: 'row', display: 'flex', justifyContent: 'space-between'}}>
                                 <Text style={styles.title}>{review.title}</Text>
-                                <TouchableOpacity onPress={() => handleDelete(review.content)}>
+                                <TouchableOpacity>
                                 <MaterialCommunityIcons name="delete" size={24} color="black" />
                                 </TouchableOpacity>
                             </View>
