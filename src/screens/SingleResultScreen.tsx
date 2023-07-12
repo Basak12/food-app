@@ -15,6 +15,7 @@ import yelp from "../api/yelp";
 import { Ionicons } from '@expo/vector-icons';
 import AddReviewScreen from "./AddReviewScreen";
 import ReviewsList from "../components/ReviewsList";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 interface YelpData {
     alias: string;
@@ -83,10 +84,15 @@ const SingleResultScreen = ({navigation}: {navigation: any}) => {
     }
 
     return (
-        <View style={{backgroundColor: '#F4F4FB', flex:1}}>
+        <View style={{backgroundColor: '#F4F4FB', flex: 1, alignItems: 'stretch'}}>
+        <KeyboardAwareScrollView
+            contentContainerStyle={styles.container}
+            enableOnAndroid
+            keyboardShouldPersistTaps="handled"
+        >
+            <ScrollView>
             <View style={styles.container}>
-                    <Text style = {styles.name}>{result.name}</Text>
-
+                <Text style = {styles.name}>{result.name}</Text>
                 <Text style ={styles.rating}>{result.rating} Stars, {result.review_count} Reviews</Text>
                 <Text style ={styles.price}>{result.price} - {category}</Text>
                 <ScrollView horizontal showsHorizontalScrollIndicator={true}>
@@ -108,10 +114,12 @@ const SingleResultScreen = ({navigation}: {navigation: any}) => {
                 </TouchableOpacity>
             }
             {addReview && <AddReviewScreen id={id} setAddReview = {setAddReview}/>}
-            {!addReview &&
-                <ScrollView>
-                    <ReviewsList id={id}/>
-                </ScrollView>}
+                {!addReview &&
+                    <ScrollView>
+                        <ReviewsList id={id}/>
+                    </ScrollView>}
+            </ScrollView>
+        </KeyboardAwareScrollView>
         </View>
     );
 }

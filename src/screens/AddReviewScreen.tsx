@@ -1,7 +1,8 @@
 import React, {useContext, useState} from "react";
-import {View, Text, StyleSheet, TextInput, Button, TouchableOpacity} from "react-native";
+import {View, Text, StyleSheet, TextInput, Button, TouchableOpacity, KeyboardAvoidingView, Platform, TouchableWithoutFeedback} from "react-native";
 import {ReviewContext} from "../context/ReviewContext";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
 
 const AddReviewScreen = ({ id, setAddReview }: { id: string, setAddReview: any }) => {
     const { handleReview, reviews} = useContext(ReviewContext);
@@ -17,8 +18,8 @@ const AddReviewScreen = ({ id, setAddReview }: { id: string, setAddReview: any }
     }
 
     return (
-        <View style={styles.container}>
-            <View style={styles.input}>
+        <View style={{backgroundColor: '#F4F4FB'}}>
+        <View style={styles.input}>
                 <Text style={styles.label}>Enter Title</Text>
                 <TextInput
                     style = {styles.textFields}
@@ -55,6 +56,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         marginRight: 10,
         flexDirection: "column",
+        flex:1,
     },
     input: {
         height: 40,

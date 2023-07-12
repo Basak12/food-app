@@ -24,6 +24,7 @@ const ReviewsList = ({id}: {id:string}) => {
         {filteredReviews.length == 0 ? <Text style={{fontWeight: '500', fontSize: 18, marginLeft: 10}}>No comments yet</Text> : <View style={{
             marginLeft: 10,
             marginRight: 10,
+            marginBottom: 15,
         }}>
             <View>
                 {filteredReviews.map((review: any) => {
